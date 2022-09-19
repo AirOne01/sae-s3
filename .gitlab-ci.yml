@@ -28,7 +28,7 @@ merge-to-stage:
   # Merge the dev branch into the staging branch
   # Note: our staging branch is `main`
   variables:
-    STAGING_BRANCH
+    STAGING_BRANCH: main
   only:
     - java
     - web
