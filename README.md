@@ -12,6 +12,10 @@
 > L'envoi des modifications des branches en pre-prod (`main`) est fait automatiquement par CI/CD (voir avec Erwann)
 > L'envoi en prod est fait manuellement (voir avec Erwann)
 
+# Figma
+
+[Lien du Figma](https://www.figma.com/file/ByNwAbPtnzLIMHgbKed4hI/Untitled?node-id=14%3A159)
+
 # Discord
 
 [Rejoindre le Discord](https://discord.gg/P7hSSTnpZV)
