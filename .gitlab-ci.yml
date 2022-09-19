@@ -16,19 +16,21 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
+variables:
+  # Note: our staging branch is `main`
+  STAGING_BRANCH: main
+
+# Get the ssh key
 merge-job:
-  before-script: # Get the ssh key
+  before-script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
     - mkdir -p ~/.ssh
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
 
+# Merge the dev branch into the staging branch
 merge-to-stage:
-  # Merge the dev branch into the staging branch
-  # Note: our staging branch is `main`
-  variables:
-    STAGING_BRANCH: main
   only:
     - java
     - web
