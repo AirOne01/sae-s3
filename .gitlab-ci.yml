@@ -20,22 +20,22 @@ variables:
   # Note: our staging branch is `main`
   STAGING_BRANCH: main
 
-# Get the ssh key
-merge-job:
-  before-script:
+stages:
+  - merge
+
+merge-to-stage:
+  stage: merge
+  only:
+    - java
+    - web
+    - bdd
+  before_script: # Get the ssh key
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
     - mkdir -p ~/.ssh
     - cat gitlab-known-hosts >> ~/.ssh/known_hosts
-
-# Merge the dev branch into the staging branch
-merge-to-stage:
-  only:
-    - java
-    - web
-    - bdd
-  script:
+  script: # Merge the dev branch into the staging branch
     # If this is the last job you can stay here, otherwise better clone the repo into a working directory
     # git clone <URL> <working-directory> && cd <working directory>
     - git checkout $STAGING_BRANCH
