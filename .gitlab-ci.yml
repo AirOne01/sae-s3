@@ -20,7 +20,7 @@ image: docker
 
 variables:
   # Note: our staging branch is `main`
-  STAGING_BRANCH: main
+  STAGING_BRANCH: "origin/main"
 
 stages:
   - merge
