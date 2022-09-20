@@ -41,5 +41,5 @@ merge-to-stage:
     - git config user.email "$GIT_EMAIL"
     - git fetch
     - git checkout "$STAGING_BRANCH"
-    - git merge "origin/$CI_COMMIT_BRANCH"
+    - git merge -s ours "origin/$CI_COMMIT_BRANCH" -m "Merge la branche de dev &CI_COMMIT_BRANCH en stage sur main"
     - git push origin "$STAGING_BRANCH"
