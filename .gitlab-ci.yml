@@ -18,10 +18,6 @@
 
 image: docker
 
-variables:
-  # Note: our staging branch is `main`
-  STAGING_BRANCH: "origin/main"
-
 stages:
   - merge
 
@@ -43,5 +39,5 @@ merge-to-stage:
     # git clone <URL> <working-directory> && cd <working directory>
     - git fetch
     - git checkout $STAGING_BRANCH
-    - git merge $CI_COMMIT_BRANCH
+    - git merge origin/$CI_COMMIT_BRANCH
     - git push origin $STAGING_BRANCH
