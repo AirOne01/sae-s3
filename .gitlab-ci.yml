@@ -37,6 +37,8 @@ merge-to-stage:
   script: # Merge the dev branch into the staging branch
     # If this is the last job you can stay here, otherwise better clone the repo into a working directory
     # git clone <URL> <working-directory> && cd <working directory>
+    - git config --gobal user.name $GIT_USERNAME
+    - git config --gobal user.email $GIT_EMAIL
     - git fetch
     - git checkout $STAGING_BRANCH
     - git merge origin/$CI_COMMIT_BRANCH
