@@ -16,6 +16,8 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
+image: docker
+
 variables:
   # Note: our staging branch is `main`
   STAGING_BRANCH: main
@@ -34,7 +36,8 @@ merge-to-stage:
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
     - mkdir -p ~/.ssh
-    - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+    - ssh-keyscan forge.univ-lyon1.fr >> ~/.ssh/known_hosts
+    - apk update && apk add git
   script: # Merge the dev branch into the staging branch
     # If this is the last job you can stay here, otherwise better clone the repo into a working directory
     # git clone <URL> <working-directory> && cd <working directory>
