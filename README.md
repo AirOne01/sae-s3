@@ -1,5 +1,8 @@
 # SAE S3
 
+![](https://img.shields.io/badge/groupe-G4S3B-orange)
+![](https://img.shields.io/badge/sous--groupe-B2-orange)
+
 [Infos sur la SAE](https://clarolineconnect.univ-lyon1.fr/icap_website/424/76578)
 
 # Organisation du projet et repo
