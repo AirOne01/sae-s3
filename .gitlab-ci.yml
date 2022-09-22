@@ -16,9 +16,7 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
-variables:
-  # Note: our staging branch is `main`
-  STAGING_BRANCH: main
+image: docker
 
 stages:
   - merge
@@ -34,10 +32,14 @@ merge-to-stage:
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$GIT_SSH_PRIV_KEY")
     - mkdir -p ~/.ssh
-    - cat gitlab-known-hosts >> ~/.ssh/known_hosts
+    - ssh-keyscan forge.univ-lyon1.fr >> ~/.ssh/known_hosts
+    - apk update && apk add git
   script: # Merge the dev branch into the staging branch
     # If this is the last job you can stay here, otherwise better clone the repo into a working directory
     # git clone <URL> <working-directory> && cd <working directory>
-    - git checkout $STAGING_BRANCH
-    - git merge $CI_COMMIT_BRANCH
-    - git push origin $STAGING_BRANCH
+    - git config user.name "$GIT_NAME"
+    - git config user.email "$GIT_EMAIL"
+    - git fetch
+    - git checkout "$STAGING_BRANCH"
+    - git merge -s ours "origin/$CI_COMMIT_BRANCH" -m "Merge la branche de dev &CI_COMMIT_BRANCH en stage sur $STAGING_BRANCH"
+    - git push -f https://${GIT_USERNAME}:${PERSONNAL_ACCESS_TOKEN}@${GIT_ORIGIN}/${GIT_PATH} "$STAGING_BRANCH"
